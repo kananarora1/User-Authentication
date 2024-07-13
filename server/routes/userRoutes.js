@@ -71,13 +71,21 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/get-current-user", authMiddleware, async (req, res) => {
-  const user = await User.findById(req.body.userId).select("-password");
+  try{
+    const user = await User.findById(req.body.userId).select("-password");
 
-  res.send({
-    success: true,
-    message: 'You are authorized to go to the protected route!',
-    data: user
-   })
+    res.send({
+      success: true,
+      message: 'You are authorized to go to the protected route!',
+      data: user
+    })
+  }
+  catch(error){
+    res.send({
+      success: false,
+      message : 'You are not authorized to go to the protected route!'
+    })
+  }
 });
 
 module.exports = router;

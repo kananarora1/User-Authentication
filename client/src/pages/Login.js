@@ -9,6 +9,12 @@ function Login() {
 
   const navigate = useNavigate();
   
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      navigate('/');
+    }
+  }, [navigate])
+
   const onFinish = async (values)=>{
     try{
       const response = await LoginUser(values);
