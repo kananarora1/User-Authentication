@@ -1,13 +1,22 @@
 import React, { useEffect } from "react";
 import { Form, Input, Button, Radio, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-
+import {RegisterUser} from '../calls/user';
 
 function Register() {
   const onFinish = async (values) => {
-    console.log(values);
-   
-  };
+    try{
+      const response = await RegisterUser(values);
+      if(response.success){
+        message.success(response.data.message);
+    }
+      else{
+        message.error(response.data.message);
+      }
+  } catch(error){
+  console.log(error);
+}
+  };  
 
 
 
